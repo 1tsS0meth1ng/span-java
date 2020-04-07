@@ -72,4 +72,4 @@ Leader Board:
 ------------------------------------------------------
 ```
 ### 3. Go back
-Returns to the main view.
+Returns to the main View.
