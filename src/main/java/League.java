@@ -7,59 +7,72 @@ import java.util.stream.Stream;
 
 public class League {
 
+
     private Collection<SoccerMatch> matches;
-    private Map<String, SoccerTeam> leaderBoard;
+    private HashMap<String, SoccerTeam> leaderBoard = new HashMap<>();;
 
-    public League() {
-        this.matches = new LinkedList();
-        this.leaderBoard = new HashMap();
-    }
-
+    /**Retrieves the player with a given name from the leader board.
+     *
+     * @param name the name of the soccer team being queried.
+     * @return a soccer team that was retrieved from the leader board.
+     */
     public SoccerTeam getTeam(String name) {
         return this.leaderBoard.get(name);
     }
 
-    public void addMatch(SoccerMatch sm) {
-        matches.add(sm);
 
-        if(sm.getWinner() != null){
+    /**Adds a match to the match list while updating the leader board based on the outcomes.
+     *
+     * @param sm a soccer match being added.
+     */
+    public void addMatch(SoccerMatch sm) {
+
+        if(sm.getWinner() != null){  //Checks whether the game was a draw of not.
             SoccerTeam smWinner = sm.getWinner();
             SoccerTeam smLoser = sm.getLoser();
 
-            SoccerTeam teamWin = getTeam(smWinner.name);
-            SoccerTeam teamLose = getTeam(smLoser.name);
+            SoccerTeam teamWin = getTeam(smWinner.name);  //Checks if the winning team has been inserted before.
+            SoccerTeam teamLose = getTeam(smLoser.name);  //Checks if the losing team has been added before.
 
-            if (teamWin == null) {
+            if (teamWin == null) {  //If the team hasn't been added add the team
                 this.leaderBoard.put(smWinner.name, smWinner);
                 teamWin = getTeam(smWinner.name);
             }
-            teamWin.score += 3;
+            teamWin.score += 3;  //Update the winners score
 
-            if (teamLose == null) {
+            if (teamLose == null) {  //If the losing team hasn't been added add the team
                 this.leaderBoard.put(smLoser.name, smLoser);
                 teamLose = getTeam(smWinner.name);
             }
+            //This team gains no points
         }
-        else {
+        else {  //If the match was a draw
             SoccerTeam teamOne = getTeam(sm.getTeamOne().name);
             SoccerTeam teamTwo = getTeam(sm.getTeamTwo().name);
 
-            if (teamOne == null) {
+            if (teamOne == null) {   //Checks if team one has been added if not add them
                 this.leaderBoard.put(sm.getTeamOne().name, sm.getTeamOne());
                 teamOne = getTeam(sm.getTeamOne().name);
             }
-            teamOne.score += 1;
+            teamOne.score += 1;  //Add the default + 1 for a draw
 
-            if (teamTwo == null) {
+            if (teamTwo == null) {  //Checks if team two has been added if not add them
                 this.leaderBoard.put(sm.getTeamTwo().name, sm.getTeamTwo());
                 teamTwo = getTeam(sm.getTeamTwo().name);
             }
-            teamTwo.score += 1;
+            teamTwo.score += 1;  //Add the default + 1 for a draw
         }
     }
 
+
+    /**Builds a string which represents the rankings ladder
+     *
+     * @return a string which represents the rankings ladder
+     */
     public String getLeaderBoardString() {
+        //Setup a comparator to sort the leader board. First sorts by score, then name.
         Comparator<Map.Entry<String, SoccerTeam>> valueComparator = new Comparator<Map.Entry<String,SoccerTeam>>() {
+
             @Override
             public int compare(Map.Entry<String, SoccerTeam> e1, Map.Entry<String, SoccerTeam> e2) {
                 Integer value = e1.getValue().score;
@@ -72,16 +85,20 @@ public class League {
             }
         };
 
-        List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList(this.leaderBoard.entrySet());
+        //Sort the list created in the previous step
+        List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList<>(this.leaderBoard.entrySet());
         mapEntries.sort(valueComparator);
 
-        LinkedList<Boolean> isTieWithPrevious = new LinkedList();
-        LinkedList<Boolean> isTieWithNext = new LinkedList();
+        LinkedList<Boolean> isTieWithPrevious = new LinkedList<>();
+        LinkedList<Boolean> isTieWithNext = new LinkedList<>();
         int listSize = mapEntries.size();
         int i = 0;
         for (Map.Entry<String, SoccerTeam> entry: mapEntries){
+            /*
+              Compiles two lists checking a given result's previous value and/or next value if the same for formatting.
+             */
             SoccerTeam team = entry.getValue();
-            if (i > 0 && i < listSize-1) {
+            if (i > 0 && i < listSize-1) {  //Value is not at the beginning or the end of the list.
                 SoccerTeam next = mapEntries.get(i+1).getValue();
                 SoccerTeam previous = mapEntries.get(i-1).getValue();
 
@@ -99,7 +116,7 @@ public class League {
                     isTieWithNext.add(false);
                 }
             }
-            if(i == 0) {
+            if(i == 0) {  //Value is at the beginning of the list.
                 if(i == listSize-1) {
                     isTieWithNext.add(false);
 
@@ -115,7 +132,7 @@ public class League {
                 }
                 isTieWithPrevious.add(false);
             }
-            if(i == listSize-1) {
+            if(i == listSize-1) {  //Value is at the end of the list.
                 if(i == 0) {
                     isTieWithPrevious.add(false);
 
@@ -135,7 +152,7 @@ public class League {
         }
 
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();  //Setup string builder
         int position = 1;
         int counter = 0;
         for(Map.Entry<String, SoccerTeam> entry: mapEntries) {
@@ -156,6 +173,17 @@ public class League {
         return sb.toString();
     }
 
+    /**A helper method  to construct a string to display the team's score.
+     *
+     * @param position the position of the team for which the string is being constructed.
+     * @param teamName the name of the team for which the string is being constructed.
+     * @param score the score of the team for which the string is being constructed.
+     * @param isTieWithNext is the next score going to be the same as the current one.
+     * @param isTieWithPrevious was the previous score the same as the current one.
+     * @param listSize the size of the list of teams.
+     * @param counter the index of this team.
+     * @return returns the formatted string for one team.
+     */
     String buildLadderLine(int position, String teamName, int score, boolean isTieWithNext, boolean isTieWithPrevious,
                            int listSize , int counter) {
         StringBuilder sb = new StringBuilder();
