@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,7 +65,7 @@ public class LeagueTest {
 
                     SoccerMatch match = new SoccerMatch(new SoccerTeam(teamOneName), new SoccerTeam(teamTwoName),
                             scoreOne, scoreTwo);
-                    argList.add(arguments(match));
+                    argList.add(Arguments.of(match));
                 }
             }
         }
@@ -80,7 +79,7 @@ public class LeagueTest {
     static Stream<Arguments> streamLeaderBoardFromFile() {
         Arguments args = null;
         File file = new File("src/test/resources/SoccerLeagueTest.txt");
-        Collection<SoccerMatch> soccerList = new LinkedList<>();
+        Collection<SoccerMatch> soccerList = new LinkedList();
         try {
 
             if (file.canRead()){
@@ -89,11 +88,11 @@ public class LeagueTest {
                     String line = sc.nextLine();
                     String[] splitValues = line.split(",");
 
-                    ArrayList<String> scoreNameOne = new ArrayList<>(Arrays.asList(splitValues[0].split(" ")));
+                    ArrayList<String> scoreNameOne = new ArrayList(Arrays.asList(splitValues[0].split(" ")));
                     String scoreOneString = scoreNameOne.remove(scoreNameOne.size() -1);
                     String teamOneName = String.join(" ", scoreNameOne).trim();
 
-                    ArrayList<String> scoreNameTwo = new ArrayList<>(Arrays.asList(splitValues[1].split(" ")));
+                    ArrayList<String> scoreNameTwo = new ArrayList(Arrays.asList(splitValues[1].split(" ")));
                     String scoreTwoString = scoreNameTwo.remove(scoreNameTwo.size() -1);
                     String teamTwoName = String.join(" ", scoreNameTwo).trim();
 
@@ -104,7 +103,7 @@ public class LeagueTest {
                             scoreOne, scoreTwo);
                     soccerList.add(match);
                 }
-                args = arguments(soccerList);
+                args = Arguments.of(soccerList);
             }
         }
 

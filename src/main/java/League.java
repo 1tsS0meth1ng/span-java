@@ -11,8 +11,8 @@ public class League {
     private Map<String, SoccerTeam> leaderBoard;
 
     public League() {
-        this.matches = new LinkedList<>();
-        this.leaderBoard = new HashMap<>();
+        this.matches = new LinkedList();
+        this.leaderBoard = new HashMap();
     }
 
     public SoccerTeam getTeam(String name) {
@@ -72,11 +72,11 @@ public class League {
             }
         };
 
-        List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList<>(this.leaderBoard.entrySet());
+        List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList(this.leaderBoard.entrySet());
         mapEntries.sort(valueComparator);
 
-        LinkedList<Boolean> isTieWithPrevious = new LinkedList<>();
-        LinkedList<Boolean> isTieWithNext = new LinkedList<>();
+        LinkedList<Boolean> isTieWithPrevious = new LinkedList();
+        LinkedList<Boolean> isTieWithNext = new LinkedList();
         int listSize = mapEntries.size();
         int i = 0;
         for (Map.Entry<String, SoccerTeam> entry: mapEntries){
@@ -138,8 +138,6 @@ public class League {
         StringBuilder sb = new StringBuilder();
         int position = 1;
         int counter = 0;
-        System.out.println(isTieWithNext.size());
-        System.out.println(isTieWithPrevious.size());
         for(Map.Entry<String, SoccerTeam> entry: mapEntries) {
             SoccerTeam current = entry.getValue();
             boolean isNextTie = isTieWithNext.get(counter);
@@ -155,7 +153,6 @@ public class League {
         if(sb.length() == 0) {
             sb.append("No matches have been recorded");
         }
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
