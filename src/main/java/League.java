@@ -1,4 +1,8 @@
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 
 public class League {
@@ -55,6 +59,27 @@ public class League {
     }
 
     public String getLeaderBoardString() {
+        Comparator<Map.Entry<String, SoccerTeam>> valueComparator = new Comparator<Map.Entry<String,SoccerTeam>>() {
+            @Override
+            public int compare(Map.Entry<String, SoccerTeam> e1, Map.Entry<String, SoccerTeam> e2) {
+                Integer value = e1.getValue().score;
+                Integer value2 = e2.getValue().score;
+                int returnComparison = value.compareTo(value2) *-1;
+                if( returnComparison == 0) {
+                    returnComparison = e1.getValue().name.compareTo(e2.getValue().name);
+                }
+                return returnComparison;
+            }
+        };
+
+        List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList<>(this.leaderBoard.entrySet());
+        mapEntries.sort(valueComparator);
+
+        for(Map.Entry<String, SoccerTeam> entry: mapEntries) {
+            System.out.println(entry.getValue().score);
+            System.out.println(entry.getValue().name);
+        }
+
         return "";
     }
 }

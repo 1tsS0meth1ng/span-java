@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -29,7 +30,7 @@ class LeagueTest {
 
     @ParameterizedTest
     @MethodSource("streamLeaderBoardFromFile")
-    public void testLeaderBoardString(SoccerMatch[] matches) {
+    public void testLeaderBoardString(Collection<SoccerMatch> matches) {
         this.league = new League();
         for (SoccerMatch sm: matches){
             league.addMatch(sm);
@@ -88,13 +89,13 @@ class LeagueTest {
                     String line = sc.nextLine();
                     String[] splitValues = line.split(",");
 
-                    String[] scoreNameOne = splitValues[0].split(" ");
-                    String scoreOneString = scoreNameOne[scoreNameOne.length -1];
-                    String teamOneName = String.join(" ", scoreNameOne);
+                    ArrayList<String> scoreNameOne = new ArrayList<>(Arrays.asList(splitValues[0].split(" ")));
+                    String scoreOneString = scoreNameOne.remove(scoreNameOne.size() -1);
+                    String teamOneName = String.join(" ", scoreNameOne).trim();
 
-                    String[] scoreNameTwo = splitValues[1].split(" ");
-                    String scoreTwoString = scoreNameTwo[scoreNameTwo.length -1];
-                    String teamTwoName = String.join(" ", scoreNameTwo);
+                    ArrayList<String> scoreNameTwo = new ArrayList<>(Arrays.asList(splitValues[1].split(" ")));
+                    String scoreTwoString = scoreNameTwo.remove(scoreNameTwo.size() -1);
+                    String teamTwoName = String.join(" ", scoreNameTwo).trim();
 
                     int scoreOne = Integer.parseInt(scoreOneString);
                     int scoreTwo = Integer.parseInt(scoreTwoString);
