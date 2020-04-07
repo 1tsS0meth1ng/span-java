@@ -8,10 +8,10 @@ Maven version 3.6.3
 2. Open Terminal within the span-project directory.
 
 ## Main Run Details
-3. Run the script by entering  and hitting enter.
+3. Run the script by entering  "java -jar span-java-1.0-SNAPSHOT" and hitting enter.
 
 ## Unit test
-3. Run the script by entering  and hitting enter.
+3. Run the script by entering "mvn clean test" and hitting enter.
 
 # Screens
 ## Main View
