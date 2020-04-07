@@ -27,4 +27,34 @@ public class SoccerMatch {
 
         return winner;
     }
+
+    public SoccerTeam getTeamOne() {
+        return teamOne;
+    }
+
+    public SoccerTeam getTeamTwo() {
+        return teamTwo;
+    }
+
+
+    public int getScoreOne() {
+        return scoreOne;
+    }
+
+    public int getScoreTwo() {
+        return scoreTwo;
+    }
+
+    public SoccerTeam getLoser() {
+        SoccerTeam loser = null;
+
+        if (this.scoreOne < this.scoreTwo) {
+            loser = this.teamOne;
+        }
+        else if (this.scoreOne > this.scoreTwo) {
+            loser = this.teamTwo;
+        }
+
+        return loser;
+    }
 }
