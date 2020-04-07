@@ -21,9 +21,9 @@ class LeagueTest {
     public void testAddMatch(SoccerMatch match) {
         this.league = new League();
         this.league.addMatch(match);
-        SoccerTeam teamOne = this.league.getTeam(one.name);
+        SoccerTeam teamOne = this.league.getTeam(match.getTeamOne().name);
         assertNotNull(teamOne);
-        SoccerTeam teamTwo = this.league.getTeam(two.name);
+        SoccerTeam teamTwo = this.league.getTeam(match.getTeamTwo().name);
         assertNotNull(teamTwo);
     }
 

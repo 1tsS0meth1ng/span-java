@@ -27,4 +27,22 @@ public class SoccerMatch {
 
         return winner;
     }
+
+    public SoccerTeam getTeamOne() {
+        return teamOne;
+    }
+
+    public SoccerTeam getTeamTwo() {
+        return teamTwo;
+    }
+
+
+    public int getScoreOne() {
+        return scoreOne;
+    }
+
+    public int getScoreTwo() {
+        return scoreTwo;
+    }
+
 }
