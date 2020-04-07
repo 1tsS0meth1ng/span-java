@@ -29,8 +29,9 @@ public class MainView extends View{
                 System.out.println(league.getLeaderBoardString());
                 break;
             case 3:
-                System.out.println("Thanks for coming");
-                this.stop();
+                stop();
+                break;
+
         }
     }
 
@@ -61,6 +62,10 @@ public class MainView extends View{
                             scoreOne, scoreTwo);
                     league.addMatch(match);
                 }
+                System.out.println("File successfully imported!");
+            }
+            else {
+                System.out.println("Sorry that file could not be found.");
             }
 
         }
