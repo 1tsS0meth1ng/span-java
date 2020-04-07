@@ -1,55 +1,59 @@
 # Soccer League Manager
 ## Requirements
-Java version 10
-## Run Details
+Java version 10  
+Maven version 3.6.3
+
+## General Steps 
 1. Download the code.
 2. Open Terminal within the span-project directory.
-3. Run the script by entering  and hitting enter.
+
+## Main Run Details
+3. Run the script by entering  "java -jar span-java-1.0-SNAPSHOT" and hitting enter.
+
+## Unit test
+3. Run the script by entering "mvn clean test" and hitting enter.
 
 # Screens
 ## Main View
 ```
-Welcome the the league manager
-1. View a list of the current leagues
-2. Add a league
-3. View a select league
-4. Quit
-Input the number of the menu item which you would like to interact with: 
-```
-
-### 1. View a list of the current leagues
-Prints a list of the registered leagues.  
-If no leagues are registered "No tournaments registered" will be displayed.
-
-### 2. Add a league
-Allows the user to add a league.  
-Inputs:
-1. Requests a league name.
-
-### 3. View a select league
-Navigates to a leagues page after the user inputs a valid league name.  
-Inputs:
-1. Requests a league name.
-
-If an invalid league name is input "Invalid tournament name" will be output.
-
-### 4. Quit
-Ends the program execution.
-
-## Tournament Management Screen
-```
-Welcome to Demo's page
-1. Import matches
-2. View Leader Board
-3. Go back
-Input the number of the menu item which you would like to interact with:
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
 ```
 
 ### 1. Import matches
-Imports values from a file to populate the matches.  
+Imports values from a file to populate the matches played by the teams.  
 
 Inputs:
-1. Requests file directory.
+1. Requests file directory.  
+#### Example 1:
+Correct data entered:
+```
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+1
+Please enter the path of the file:
+C:\SoccerLeagueTest.txt
+File successfully imported!
+```
+
+#### Example 2:
+Incorrect data entered:  
+```
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+1
+Please enter the path of the file:
+C:/NotThere.txt
+Sorry that file could not be found.
+```
 
 If the file cannot be accessed "The given file cannot be accessed" will be displayed.
 
@@ -58,18 +62,67 @@ Displays the current leader board with the current data.
 Examples:  
 If empty:
 ```
-Leader Board:
-------------------------------------------------------
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+2
+No matches have been recorded
 ```
 If not empty (test data used):  
 ```
-Leader Board:
-1. Tarantulas 6 pts
-2. Lions 5 pts
-3. Snakes 1 pts
-4. FC Awesome 1 pts
-5. Grouches 0 pts
-------------------------------------------------------
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+2
+1. Tarantulas, 6 pts
+2. Lions, 5 pts
+3. FC Awesome, 1 pt
+3. Snakes, 1 pt
+5. Grouches, 0 pts
 ```
 ### 3. Go back
-Returns to the main view.
+Inputs:
+1. Requests whether or the user is sure they want to quit. 
+If 'y' is entered 
+```
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+3
+Are you sure you want to exit?(y/n):
+y
+Have a fantastic day
+```
+If 'y' is entered 
+```
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+3
+Are you sure you want to exit?(y/n):
+n
+(program execution continues)
+```
+
+If a value other than 'y' or 'n' is entered 
+```
+--------------------------------------------------------------------
+1. Import a file
+2. Display the leader board
+3. Quit
+Enter in the number of your selection:
+3
+Are you sure you want to exit?(y/n):
+dsaodas
+Sorry that is an invalid input
+Are you sure you want to exit?(y/n):
+```
+
