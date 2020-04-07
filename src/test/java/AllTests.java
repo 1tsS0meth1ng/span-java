@@ -4,7 +4,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        SoccerMatchTest.class
+        SoccerMatchTest.class,
+        LeagueTest.class
 })
 
 public class AllTests {

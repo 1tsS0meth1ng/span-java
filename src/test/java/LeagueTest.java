@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Stream;
 
-class LeagueTest {
+public class LeagueTest {
 
     private final String defaultLeaderBoard = "1. Tarantulas, 6 pts\n2. Lions, 5 pts\n3. FC Awesome, 1 pt\n" +
             "3. Snakes, 1 pt\n5. Grouches, 0 pts";

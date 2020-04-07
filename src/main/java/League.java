@@ -75,11 +75,105 @@ public class League {
         List<Map.Entry<String, SoccerTeam>> mapEntries = new ArrayList<>(this.leaderBoard.entrySet());
         mapEntries.sort(valueComparator);
 
-        for(Map.Entry<String, SoccerTeam> entry: mapEntries) {
-            System.out.println(entry.getValue().score);
-            System.out.println(entry.getValue().name);
+        LinkedList<Boolean> isTieWithPrevious = new LinkedList<>();
+        LinkedList<Boolean> isTieWithNext = new LinkedList<>();
+        int listSize = mapEntries.size();
+        int i = 0;
+        for (Map.Entry<String, SoccerTeam> entry: mapEntries){
+            SoccerTeam team = entry.getValue();
+            if (i > 0 && i < listSize-1) {
+                SoccerTeam next = mapEntries.get(i+1).getValue();
+                SoccerTeam previous = mapEntries.get(i-1).getValue();
+
+                if (team.score == previous.score) {
+                    isTieWithPrevious.add(true);
+                }
+                else {
+                    isTieWithPrevious.add(false);
+                }
+
+                if (team.score == next.score) {
+                    isTieWithNext.add(true);
+                }
+                else {
+                    isTieWithNext.add(false);
+                }
+            }
+            if(i == 0) {
+                if(i == listSize-1) {
+                    isTieWithNext.add(false);
+
+                }
+                else {
+                    SoccerTeam next = mapEntries.get(i+1).getValue();
+                    if (team.score == next.score) {
+                        isTieWithNext.add(true);
+                    }
+                    else {
+                        isTieWithNext.add(false);
+                    }
+                }
+                isTieWithPrevious.add(false);
+            }
+            if(i == listSize-1) {
+                if(i == 0) {
+                    isTieWithPrevious.add(false);
+
+                }
+                else {
+                    SoccerTeam previous = mapEntries.get(i-1).getValue();
+                    if (team.score == previous.score) {
+                        isTieWithPrevious.add(true);
+                    }
+                    else {
+                        isTieWithPrevious.add(false);
+                    }
+                }
+                isTieWithNext.add(false);
+            }
+            i++;
         }
 
-        return "";
+
+        StringBuilder sb = new StringBuilder();
+        int position = 1;
+        int counter = 0;
+        System.out.println(isTieWithNext.size());
+        System.out.println(isTieWithPrevious.size());
+        for(Map.Entry<String, SoccerTeam> entry: mapEntries) {
+            SoccerTeam current = entry.getValue();
+            boolean isNextTie = isTieWithNext.get(counter);
+            boolean isPrevTie = isTieWithPrevious.get(counter);
+
+            sb.append(buildLadderLine(position, current.name, current.score, isNextTie, isPrevTie, mapEntries.size(), counter));
+            counter++;
+            if(!isNextTie) {
+                position = counter + 1;
+            }
+        }
+
+        if(sb.length() == 0) {
+            sb.append("No matches have been recorded");
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    String buildLadderLine(int position, String teamName, int score, boolean isTieWithNext, boolean isTieWithPrevious,
+                           int listSize , int counter) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(position);
+        sb.append(". ");
+        sb.append(teamName);
+        sb.append(", ");
+        sb.append(score);
+        sb.append(" pt");
+        if(!isTieWithNext && !isTieWithPrevious) {
+            sb.append('s');
+        }
+        if (counter < listSize-1) {
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }
