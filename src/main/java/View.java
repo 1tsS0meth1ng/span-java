@@ -18,7 +18,23 @@ public abstract class View {
     }
 
     protected void stop() {
-        run = false;
+        boolean unsure = true;
+        while(unsure) {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Are you sure you want to exit?(y/n):");
+            String input = in.nextLine().trim().toLowerCase();
+            if(input.equals("y")){
+                unsure = false;
+                run = false;
+                System.out.println("Have a fantastic day");
+            }
+            else if (input.equals("n")) {
+                unsure = false;
+            }
+            else {
+                System.out.println("Sorry that is an invalid input");
+            }
+        }
     }
 
     public abstract void display();
