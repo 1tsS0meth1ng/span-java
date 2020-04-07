@@ -45,4 +45,16 @@ public class SoccerMatch {
         return scoreTwo;
     }
 
+    public SoccerTeam getLoser() {
+        SoccerTeam loser = null;
+
+        if (this.scoreOne < this.scoreTwo) {
+            loser = this.teamOne;
+        }
+        else if (this.scoreOne > this.scoreTwo) {
+            loser = this.teamTwo;
+        }
+
+        return loser;
+    }
 }
